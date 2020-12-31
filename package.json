@@ -10,9 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
-    "dom-parser": "^0.1.6",
     "express": "^4.17.1",
-    "htmlparser2": "^6.0.0",
     "jsdom": "^16.4.0"
   }
 }
