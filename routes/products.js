@@ -80,4 +80,3 @@ router.get('/:search/:quantity', async (req,res) => {
 
 
 module.exports = router;
-// searchProduct(baseUrl, "star wars mandalorian");
