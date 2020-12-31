@@ -2,9 +2,8 @@ const express = require('express');
 const axios = require('axios');
 const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
-const searchBaseUrl = `https://www.shopdisney.co.uk/search?q=`;
-
 const router = express.Router();
+const searchBaseUrl = `https://www.shopdisney.co.uk/search?q=`;
 
 
 router.get('/', (req,res) => res.send("Product Search App loading"));
@@ -24,19 +23,18 @@ router.get('/:search/:quantity', async (req,res) => {
             const {window,window:{site_datalayer}} = doc;
             // console.log(site_datalayer);
             const{product} = site_datalayer;
+            const{product_id, product_availability } = product
             console.log(product);
             const state = false
-            if (product !== undefined && product_availability === 'online - IN_STOCK') {
-                const quantity = req.params.quantity;
-                const cartBaseUrl = `https://www.shopdisney.co.uk/on/demandware.store/Sites-disneyuk-Site/en_GB/Product-AddedToCart?pid=${product_id}&quantity=${quantity}&personalised=${state}`;
-                const response = await axios.get(cartBaseUrl);
-                console.log("We are here");
-                console.log(response);
+            if (product !== undefined) {
+                if (product_availability === 'online - IN_STOCK') {
+                    const quantity = req.params.quantity;
+                    const cartBaseUrl = `https://www.shopdisney.co.uk/on/demandware.store/Sites-disneyuk-Site/en_GB/Product-AddedToCart?pid=${product_id}&quantity=${quantity}&personalised=${state}`;
+                    const response = await axios.get(cartBaseUrl);
+                    console.log("We are here");
+                    console.log(Object.keys(response));
+                }
             }
-            // const {listing_products:{productName,productID}} = site_datalayer;
-            // if (productName.length > 1) {
-                
-            // }
             res.status(200).json({
                 site_datalayer
             });
